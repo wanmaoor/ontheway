@@ -17,7 +17,6 @@ import SignUp from './Views/SignUp';
 import User from './Views/User/User';
 
 const App = () => {
-  console.log('app created');
   return (
     <NativeRouter>
       <View style={[styles.container, global.global]}>
@@ -31,7 +30,6 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
     flex: 1,
   },
 });
