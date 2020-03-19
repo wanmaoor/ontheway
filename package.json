@@ -12,11 +12,12 @@
   "dependencies": {
     "@ant-design/icons-react-native": "^2.0.0",
     "@ant-design/react-native": "^3.3.0",
-    "@antv/f2": "^3.6.1",
     "history": "^4.10.1",
     "react": "16.9.0",
     "react-native": "0.61.5",
-    "react-router-native": "^5.1.2"
+    "react-native-svg": "^12.0.3",
+    "react-router-native": "^5.1.2",
+    "victory-native": "^34.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
