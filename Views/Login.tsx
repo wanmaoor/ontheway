@@ -2,11 +2,11 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Button, InputItem, List} from '@ant-design/react-native';
 import {Link, RouteComponentProps} from 'react-router-native';
-import history from '../config/history';
 import global from '../styles/global';
 interface ILoginState {
   username: string;
   password: string;
+  loggedIn: boolean;
 }
 class Login extends React.Component<RouteComponentProps, ILoginState> {
   constructor(props: any) {
@@ -14,6 +14,7 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
     this.state = {
       username: '',
       password: '',
+      loggedIn: false,
     };
   }
   render() {
@@ -62,7 +63,8 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
             type={'primary'}
             style={LoginStyle.submit}
             onPressOut={() => {
-              console.log(history);
+              this.setState({loggedIn: true});
+              this.props.history.push('/user');
             }}
             onPressIn={() => {
               console.log('You tapped the button!');

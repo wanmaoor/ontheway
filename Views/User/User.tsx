@@ -1,10 +1,15 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-
-const User = () => {
+import {RouteComponentProps} from 'react-router-native';
+const User: React.FC<RouteComponentProps> = ({history}) => {
   return (
     <View>
-      <Text>用户</Text>
+      <Text
+        onPress={() => {
+          history.push('/login');
+        }}>
+        用户
+      </Text>
     </View>
   );
 };
