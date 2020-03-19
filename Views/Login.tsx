@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Button, InputItem, List} from '@ant-design/react-native';
 import {Link, RouteComponentProps} from 'react-router-native';
+import history from '../config/history';
 import global from '../styles/global';
 interface ILoginState {
   username: string;
@@ -60,6 +61,9 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
           <Button
             type={'primary'}
             style={LoginStyle.submit}
+            onPressOut={() => {
+              console.log(history);
+            }}
             onPressIn={() => {
               console.log('You tapped the button!');
             }}>
