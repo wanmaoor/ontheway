@@ -11,10 +11,10 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {NativeRouter, Route} from 'react-router-native';
-import Login from './Views/Login';
 import global from './styles/global';
+import Login from './Views/Login';
 import SignUp from './Views/SignUp';
-import User from './Views/User/User';
+import Nav from './components/Nav';
 
 const App = () => {
   return (
@@ -22,7 +22,7 @@ const App = () => {
       <View style={[styles.container, global.global]}>
         <Route exact path="/" component={SignUp} />
         <Route path="/login" component={Login} />
-        <Route path={'/user'} component={User} />
+        <Route path={'/nav'} component={Nav} />
       </View>
     </NativeRouter>
   );

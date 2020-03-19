@@ -62,7 +62,7 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
               type={'primary'}
               style={LoginStyle.submit}
               onPressOut={() => {
-                this.props.history.push('/user');
+                this.props.history.push('/nav');
               }}>
               登录
             </Button>
