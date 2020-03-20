@@ -4,6 +4,7 @@ import {Icon, TabBar} from '@ant-design/react-native';
 import User from '../Views/User/User';
 import Traffic from '../Views/Traffic/Traffic';
 import Stats from '../Views/Stats/Stats';
+import {StyleSheet} from 'react-native';
 const Nav: React.FC<RouteComponentProps> = props => {
   const [selectedTab, setSelectedTab] = useState('路况');
   return (
@@ -36,5 +37,12 @@ const Nav: React.FC<RouteComponentProps> = props => {
     </TabBar>
   );
 };
+
+const navStyle = StyleSheet.create({
+  footer: {
+    position: 'relative',
+    bottom: 0,
+  },
+});
 
 export default Nav;
