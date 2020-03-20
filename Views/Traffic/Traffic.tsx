@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {RouteComponentProps} from 'react-router-native';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {WingBlank, Card, WhiteSpace, SearchBar} from '@ant-design/react-native';
@@ -6,6 +6,18 @@ import Svg, {Rect} from 'react-native-svg';
 
 const Traffic: React.FC<RouteComponentProps> = () => {
   const [inputText, setInputText] = useState('');
+  const [amount, setAmount] = useState(50);
+  const width = 220;
+  useEffect(() => {
+    if (amount < width) {
+      let id = setInterval(() => {
+        setAmount(amount + 10);
+      }, 10);
+      return () => {
+        clearInterval(id);
+      };
+    }
+  }, [amount]);
   return (
     <>
       <SearchBar
@@ -29,16 +41,16 @@ const Traffic: React.FC<RouteComponentProps> = () => {
             />
             <Card.Body>
               <View>
-                <Text>11:00发车</Text>
+                <WingBlank>
+                  <Text>11:00发车</Text>
+                </WingBlank>
                 <Svg width="200" height="60">
                   <Rect
                     x="15"
                     y="15"
-                    width="120"
+                    width={amount}
                     height="40"
                     fill="#c43a31"
-                    rx={5}
-                    ry={5}
                   />
                 </Svg>
               </View>
