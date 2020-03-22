@@ -32,7 +32,7 @@ const Nav: React.FC<RouteComponentProps> = props => {
         title="用户"
         selected={selectedTab === '用户'}
         onPress={() => setSelectedTab('用户')}>
-        <User {...props} />
+        <User {...props} username={'拖米'} />
       </TabBar.Item>
     </TabBar>
   );

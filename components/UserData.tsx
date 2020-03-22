@@ -21,6 +21,7 @@ const UserData: React.FC = () => {
   return (
     <View style={UserDataStyles.container}>
       <F name={'总时间'} detail={'54H'} />
+      <Text style={{transform: [{scale: 2}], color: '#BDC3C7'}}> | </Text>
       <F name={'总里程'} detail={'132KM'} />
     </View>
   );
