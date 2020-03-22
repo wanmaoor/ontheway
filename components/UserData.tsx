@@ -7,6 +7,11 @@ interface IFProps {
   detail: string;
 }
 
+interface IUserProps {
+  totalTime: number;
+  totalMileage: number;
+}
+
 const F: React.FC<IFProps> = ({name, detail}) => {
   return (
     <View style={UserDataStyles.innerContainer}>
@@ -17,12 +22,12 @@ const F: React.FC<IFProps> = ({name, detail}) => {
   );
 };
 
-const UserData: React.FC = () => {
+const UserData: React.FC<IUserProps> = ({totalTime, totalMileage}) => {
   return (
     <View style={UserDataStyles.container}>
-      <F name={'总时间'} detail={'54H'} />
+      <F name={'总时间'} detail={`${totalTime}h`} />
       <Text style={UserDataStyles.middleSlash}> | </Text>
-      <F name={'总里程'} detail={'132KM'} />
+      <F name={'总里程'} detail={`${totalMileage}km`} />
     </View>
   );
 };

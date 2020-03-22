@@ -16,7 +16,10 @@ const User: React.FC<IUser> = ({username}) => {
         thumbStyle={UserStyles.thumbStyle}
         thumb="https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg"
       />
-      <Card.Footer content={<UserData />} style={UserStyles.footer} />
+      <Card.Footer
+        content={<UserData totalTime={33} totalMileage={456} />}
+        style={UserStyles.footer}
+      />
     </Card>
   );
 };
