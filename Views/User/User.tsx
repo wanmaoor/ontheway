@@ -7,8 +7,24 @@ import UserData from '../../components/UserData';
 interface IUser extends RouteComponentProps {
   username: string;
 }
+const UserStyles = StyleSheet.create({
+  title: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    marginTop: 15,
+  },
+  thumbStyle: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+    marginRight: 20,
+    marginTop: 20,
+  },
+  footer: {marginBottom: 10},
+  largeText: {fontSize: 14},
+});
 const largeText = (title: string) => (
-  <Text style={{fontSize: 14}}>{title}</Text>
+  <Text style={UserStyles.largeText}>{title}</Text>
 );
 
 const gridData = [
@@ -41,29 +57,9 @@ const User: React.FC<IUser> = ({username}) => {
         />
       </Card>
       <WhiteSpace size={'md'} />
-      <Grid
-        data={gridData}
-        columnNum={3}
-        onPress={(_el, index) => alert(index)}
-      />
+      <Grid data={gridData} columnNum={3} />
     </>
   );
 };
-
-const UserStyles = StyleSheet.create({
-  title: {
-    fontWeight: 'bold',
-    fontSize: 24,
-    marginTop: 15,
-  },
-  thumbStyle: {
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-    marginRight: 20,
-    marginTop: 20,
-  },
-  footer: {marginBottom: 10},
-});
 
 export default User;
