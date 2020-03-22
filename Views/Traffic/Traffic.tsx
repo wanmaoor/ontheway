@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {RouteComponentProps} from 'react-router-native';
 import {ScrollView, StyleSheet} from 'react-native';
-import {WhiteSpace, SearchBar} from '@ant-design/react-native';
+import {SearchBar, WhiteSpace} from '@ant-design/react-native';
 import BusCard from '../../components/BusCard';
 
-const Traffic: React.FC<RouteComponentProps> = () => {
+const Traffic: React.FC<RouteComponentProps> = props => {
   const [inputText, setInputText] = useState('');
 
   return (
@@ -21,8 +21,11 @@ const Traffic: React.FC<RouteComponentProps> = () => {
         showCancelButton={!!inputText}
       />
       <ScrollView style={TrafficStyle.sv}>
-        <WhiteSpace size={'xl'} />
-        <BusCard />
+        <BusCard busName={'117'} payload={32} maxPayload={32} {...props} />
+        <BusCard busName={'720'} payload={16} maxPayload={64} {...props} />
+        <BusCard busName={'723'} payload={30} maxPayload={48} {...props} />
+        <BusCard busName={'118'} payload={4} maxPayload={64} {...props} />
+        <WhiteSpace size={'lg'} />
       </ScrollView>
     </>
   );
