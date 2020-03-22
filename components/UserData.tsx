@@ -21,7 +21,7 @@ const UserData: React.FC = () => {
   return (
     <View style={UserDataStyles.container}>
       <F name={'总时间'} detail={'54H'} />
-      <Text style={{transform: [{scale: 2}], color: '#BDC3C7'}}> | </Text>
+      <Text style={UserDataStyles.middleSlash}> | </Text>
       <F name={'总里程'} detail={'132KM'} />
     </View>
   );
@@ -46,6 +46,7 @@ const UserDataStyles = StyleSheet.create({
     fontSize: 24,
     color: 'rgba(0, 0, 0, 0.87)',
   },
+  middleSlash: {transform: [{scale: 2}], color: '#BDC3C7'},
 });
 
 export default UserData;
