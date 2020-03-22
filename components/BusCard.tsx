@@ -60,12 +60,12 @@ const BusCard: React.FC<IBusCardProps> = ({busName, payload, maxPayload}) => {
               console.log('点击了');
               setScale(1);
             }}>
-            <Svg width="400" height="80" title={'拥挤程度'}>
+            <Svg width="400" height="70" title={'拥挤程度'}>
               <Rect
                 x="15"
                 y="10"
                 width={300}
-                height="60"
+                height="50"
                 strokeWidth={1}
                 stroke={'#CCD1D1'}
                 rx={4}
@@ -77,7 +77,7 @@ const BusCard: React.FC<IBusCardProps> = ({busName, payload, maxPayload}) => {
                 y="10"
                 origin={[200, 40]}
                 width={amount}
-                height="60"
+                height="50"
                 fill={fillColor}
                 scale={scale}
                 rx={4}
