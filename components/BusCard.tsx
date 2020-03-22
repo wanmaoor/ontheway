@@ -12,6 +12,7 @@ interface IBusCardProps extends RouteComponentProps {
 
 const BusCard: React.FC<IBusCardProps> = ({busName, payload, maxPayload}) => {
   const [amount, setAmount] = useState(0);
+  const [scale, setScale] = useState(1);
   const divide = payload / maxPayload;
   const width = 300 * divide;
   const colors = [
@@ -51,7 +52,14 @@ const BusCard: React.FC<IBusCardProps> = ({busName, payload, maxPayload}) => {
           extra="11:00发车"
         />
         <Card.Body>
-          <View>
+          <View
+            onTouchStart={() => {
+              setScale(1.01);
+            }}
+            onTouchEnd={() => {
+              console.log('点击了');
+              setScale(1);
+            }}>
             <Svg width="400" height="80" title={'拥挤程度'}>
               <Rect
                 x="15"
@@ -60,17 +68,23 @@ const BusCard: React.FC<IBusCardProps> = ({busName, payload, maxPayload}) => {
                 height="60"
                 strokeWidth={1}
                 stroke={'#CCD1D1'}
-                rx={5}
+                rx={4}
+                scale={scale}
+                origin={[200, 40]}
               />
               <Rect
                 x="15"
                 y="10"
+                origin={[200, 40]}
                 width={amount}
                 height="60"
                 fill={fillColor}
-                rx={5}
+                scale={scale}
+                rx={4}
               />
-              <Text style={[BusCardStyle.SVGText, {color: fillColor}]}>
+              <Text
+                style={[BusCardStyle.SVGText, {color: fillColor}]}
+                allowFontScaling={true}>
                 {statusText}
               </Text>
             </Svg>
