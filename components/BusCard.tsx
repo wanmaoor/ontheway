@@ -54,7 +54,7 @@ const BusCard: React.FC<IBusCardProps> = ({busName, payload, maxPayload}) => {
           <View>
             <Svg width="400" height="80" title={'拥挤程度'}>
               <Rect
-                x="14"
+                x="15"
                 y="10"
                 width={300}
                 height="60"
