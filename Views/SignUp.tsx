@@ -3,13 +3,17 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Button, InputItem, List, WingBlank} from '@ant-design/react-native';
 import {Link, RouteComponentProps} from 'react-router-native';
 import global from '../styles/global';
+import {testUrl} from '../config/constants';
+
 interface ISignUpState {
   username: string;
   phone: string;
   password: string;
   confirmPassword: string;
   error: boolean;
+  phoneError: boolean;
 }
+
 export default class SignUp extends React.Component<
   RouteComponentProps,
   ISignUpState
@@ -22,14 +26,24 @@ export default class SignUp extends React.Component<
       password: '',
       confirmPassword: '',
       error: false,
+      phoneError: false,
     };
     console.log(this.props.match);
   }
+
   compare = () => {
     this.setState(state => {
       return state.password !== state.confirmPassword
         ? {error: true}
         : {error: false};
+    });
+  };
+
+  checkPhone = () => {
+    this.setState(state => {
+      return /^1[3456789]\d{9}$/.test(state.phone)
+        ? {phoneError: true}
+        : {phoneError: false};
     });
   };
 
@@ -63,7 +77,9 @@ export default class SignUp extends React.Component<
                 this.setState({
                   phone: value,
                 });
+                this.checkPhone();
               }}
+              error={this.state.phoneError}
               labelNumber={5}
               placeholder="输入电话号码">
               手机号:
@@ -121,6 +137,9 @@ export default class SignUp extends React.Component<
     if (this.state.username && this.state.phone) {
       console.log('注册好了');
     }
+    fetch('http://rap2.taobao.org:38080/app/mock/249762/example/1586144180803')
+      .then(response => response.json())
+      .then(json => console.log(json));
     return undefined;
   };
 }
