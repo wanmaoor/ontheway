@@ -39,7 +39,6 @@ const gridData = [
 ];
 
 const User: React.FC<any> = props => {
-  console.log('User: ', props.userInfo.userInfo.username);
   return (
     <>
       <Card full={true}>

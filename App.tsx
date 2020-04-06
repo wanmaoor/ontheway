@@ -17,6 +17,7 @@ import global from './styles/global';
 import Login from './Views/Login';
 import SignUp from './Views/SignUp';
 import Nav from './components/Nav';
+import ModifyProfile from './Views/User/ModifyProfile';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route exact path="/" component={SignUp} />
           <Route path="/login" component={Login} />
           <Route path={'/nav'} component={Nav} />
+          <Route path={'/modifyProfile'} component={ModifyProfile} />
         </View>
       </NativeRouter>
     </Provider>
