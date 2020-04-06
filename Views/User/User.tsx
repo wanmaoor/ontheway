@@ -1,12 +1,8 @@
 import React from 'react';
-import {RouteComponentProps} from 'react-router-native';
 import {StyleSheet, Text} from 'react-native';
 import {Card, Grid, Icon, WhiteSpace} from '@ant-design/react-native';
 import UserData from '../../components/UserData';
 
-interface IUser extends RouteComponentProps {
-  username: string;
-}
 const UserStyles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
@@ -42,14 +38,19 @@ const gridData = [
   },
 ];
 
-const User: React.FC<IUser> = ({username}) => {
+const User: React.FC<any> = props => {
+  console.log('User: ', props.userInfo.userInfo.username);
   return (
     <>
       <Card full={true}>
         <Card.Header
-          title={<Text style={UserStyles.title}>{username}</Text>}
+          title={
+            <Text style={UserStyles.title}>
+              {props.userInfo.userInfo.username}
+            </Text>
+          }
           thumbStyle={UserStyles.thumbStyle}
-          thumb="https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg"
+          thumb={props.userInfo.userInfo.avatar}
         />
         <Card.Footer
           content={<UserData totalTime={33} totalMileage={456} />}

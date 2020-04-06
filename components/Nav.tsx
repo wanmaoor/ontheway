@@ -1,12 +1,23 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {RouteComponentProps} from 'react-router-native';
+import {connect} from 'react-redux';
+import {getInfo, modifyInfo} from '../redux/actions/usrInfoAcrion';
 import {Icon, TabBar} from '@ant-design/react-native';
 import User from '../Views/User/User';
 import Traffic from '../Views/Traffic/Traffic';
 import Stats from '../Views/Stats/Stats';
-import {StyleSheet} from 'react-native';
-const Nav: React.FC<RouteComponentProps> = props => {
+
+interface INavProps extends RouteComponentProps {
+  modifyInfo: any;
+  getInfo: any;
+  userInfo: IUserInfo;
+}
+const Nav: React.FC<INavProps> = props => {
   const [selectedTab, setSelectedTab] = useState('路况');
+  console.log('Nav: ', props.userInfo);
+  useEffect(() => {
+    props.getInfo();
+  }, [props]);
   return (
     <TabBar
       unselectedTintColor="#949494"
@@ -32,17 +43,20 @@ const Nav: React.FC<RouteComponentProps> = props => {
         title="用户"
         selected={selectedTab === '用户'}
         onPress={() => setSelectedTab('用户')}>
-        <User {...props} username={'拖米'} />
+        <User {...props} />
       </TabBar.Item>
     </TabBar>
   );
 };
 
-const navStyle = StyleSheet.create({
-  footer: {
-    position: 'relative',
-    bottom: 0,
-  },
+const mapStateToProps: (state: IUserInfo) => any = state => ({
+  userInfo: state,
 });
-
-export default Nav;
+const mapDispatchToProps = {
+  modifyInfo,
+  getInfo,
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Nav);
