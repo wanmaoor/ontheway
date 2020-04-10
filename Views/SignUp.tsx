@@ -134,12 +134,24 @@ export default class SignUp extends React.Component<
   }
 
   handlePress = () => {
-    if (this.state.username && this.state.phone) {
-      console.log('注册好了');
+    if (this.state.username && this.state.phone && this.state.password) {
+      fetch(
+        `http://123.57.55.107:5000/add?phone=1262&user_name=lala&password=w123&sex=男&born_date=1999-2-3&email=122@qq.com`,
+        {
+          method: 'POST',
+        },
+      )
+        .then(
+          response => console.log(response),
+          err => {
+            console.error(err);
+          },
+        )
+        .then(() => {
+          console.log('注册好了');
+        });
     }
-    fetch('http://rap2.taobao.org:38080/app/mock/249762/example/1586144180803')
-      .then(response => response.json())
-      .then(json => console.log(json));
+
     return undefined;
   };
 }

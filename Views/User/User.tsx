@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {Card, Grid, Icon, WhiteSpace} from '@ant-design/react-native';
 import UserData from '../../components/UserData';
+import index from '../../redux/reducers';
 
 const UserStyles = StyleSheet.create({
   title: {
@@ -57,7 +58,13 @@ const User: React.FC<any> = props => {
         />
       </Card>
       <WhiteSpace size={'md'} />
-      <Grid data={gridData} columnNum={3} />
+      <Grid
+        data={gridData}
+        columnNum={3}
+        onPress={(_el, i) => {
+          console.log(_el, i);
+        }}
+      />
     </>
   );
 };
