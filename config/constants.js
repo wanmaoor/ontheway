@@ -1,1 +1,1 @@
-export const testUrl = 'http://rap2.taobao.org:38080/app/mock/249739/';
+export const serverUrl = 'http://123.57.55.107:5000';

@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Button, InputItem, List, WingBlank} from '@ant-design/react-native';
 import {Link, RouteComponentProps} from 'react-router-native';
 import global from '../styles/global';
-import {testUrl} from '../config/constants';
+import {serverUrl} from '../config/constants';
 
 interface ISignUpState {
   username: string;
@@ -136,7 +136,11 @@ export default class SignUp extends React.Component<
   handlePress = () => {
     if (this.state.username && this.state.phone && this.state.password) {
       fetch(
-        `http://123.57.55.107:5000/add?phone=1262&user_name=lala&password=w123&sex=男&born_date=1999-2-3&email=122@qq.com`,
+        `${serverUrl}/add?phone=${this.state.phone
+          .split(' ')
+          .join('')}&user_name=${this.state.username}&password=${
+          this.state.password
+        }&sex=男&born_date=1999-2-3&email=122@qq.com`,
         {
           method: 'POST',
         },
