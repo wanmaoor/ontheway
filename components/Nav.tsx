@@ -14,7 +14,7 @@ interface INavProps extends RouteComponentProps {
 }
 const Nav: React.FC<INavProps> = props => {
   const [selectedTab, setSelectedTab] = useState('路况');
-  console.log('Nav: ', props.userInfo);
+  // console.log('Nav: ', props.userInfo);
   useEffect(() => {
     props.getInfo();
   }, [props]);

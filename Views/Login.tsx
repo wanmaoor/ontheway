@@ -1,74 +1,100 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Button, InputItem, List, WingBlank} from '@ant-design/react-native';
+import {
+  Button,
+  InputItem,
+  List,
+  Provider,
+  Toast,
+  WingBlank,
+} from '@ant-design/react-native';
 import {Link, RouteComponentProps} from 'react-router-native';
 import global from '../styles/global';
+import {serverUrl} from '../config/constants';
 interface ILoginState {
-  username: string;
+  id: string;
   password: string;
 }
 class Login extends React.Component<RouteComponentProps, ILoginState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      username: '',
+      id: '',
       password: '',
     };
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+  handleLogin() {
+    if (this.state.id && this.state.password) {
+      fetch(
+        `${serverUrl}/login?user_id=${this.state.id}&password=${
+          this.state.password
+        }`,
+        {
+          method: 'POST',
+        },
+      ).then(res => {
+        console.log('登录: ', res);
+        this.props.history.push('/nav');
+      });
+    } else {
+      Toast.fail('完善登录信息', 2);
+    }
   }
   render() {
     return (
-      <View style={LoginStyle.container}>
-        <View style={LoginStyle.header}>
-          <Text>公交出行系统</Text>
+      <Provider>
+        <View style={LoginStyle.container}>
+          <View style={LoginStyle.header}>
+            <Text>公交出行系统</Text>
+          </View>
+          <WingBlank>
+            <List renderHeader={'登录'}>
+              <InputItem
+                style={global.inputPadding}
+                clear
+                value={this.state.id}
+                onChange={value => {
+                  this.setState({
+                    id: value,
+                  });
+                }}
+                labelNumber={3}
+                placeholder="输入用户名">
+                姓名:
+              </InputItem>
+              <InputItem
+                style={global.inputPadding}
+                clear
+                type="password"
+                value={this.state.password}
+                onChange={value => {
+                  this.setState({
+                    password: value,
+                  });
+                }}
+                labelNumber={3}
+                placeholder="请输入密码密码">
+                密码:
+              </InputItem>
+            </List>
+            <View style={LoginStyle.text}>
+              <Text>没有账号? 快去</Text>
+              <Link to={'/'}>
+                <Text style={LoginStyle.textColor}> 注册吧</Text>
+              </Link>
+            </View>
+            <View>
+              <Button
+                type={'primary'}
+                style={LoginStyle.submit}
+                onPressOut={this.handleLogin}>
+                登录
+              </Button>
+            </View>
+          </WingBlank>
         </View>
-        <WingBlank>
-          <List renderHeader={'登录'}>
-            <InputItem
-              style={global.inputPadding}
-              clear
-              value={this.state.username}
-              onChange={value => {
-                this.setState({
-                  username: value,
-                });
-              }}
-              labelNumber={3}
-              placeholder="输入用户名">
-              姓名:
-            </InputItem>
-            <InputItem
-              style={global.inputPadding}
-              clear
-              type="password"
-              value={this.state.password}
-              onChange={value => {
-                this.setState({
-                  password: value,
-                });
-              }}
-              labelNumber={3}
-              placeholder="请输入密码密码">
-              密码:
-            </InputItem>
-          </List>
-          <View style={LoginStyle.text}>
-            <Text>没有账号? 快去</Text>
-            <Link to={'/'}>
-              <Text style={LoginStyle.textColor}> 注册吧</Text>
-            </Link>
-          </View>
-          <View>
-            <Button
-              type={'primary'}
-              style={LoginStyle.submit}
-              onPressOut={() => {
-                this.props.history.push('/nav');
-              }}>
-              登录
-            </Button>
-          </View>
-        </WingBlank>
-      </View>
+      </Provider>
     );
   }
 }

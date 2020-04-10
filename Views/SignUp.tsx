@@ -1,6 +1,13 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Button, InputItem, List, WingBlank} from '@ant-design/react-native';
+import {
+  Button,
+  InputItem,
+  List,
+  Toast,
+  Provider,
+  WingBlank,
+} from '@ant-design/react-native';
 import {Link, RouteComponentProps} from 'react-router-native';
 import global from '../styles/global';
 import {serverUrl} from '../config/constants';
@@ -49,87 +56,89 @@ export default class SignUp extends React.Component<
 
   render() {
     return (
-      <View style={SignUpStyle.container}>
-        <View style={SignUpStyle.header}>
-          <Text>公交出行系统</Text>
-        </View>
-        <WingBlank>
-          <List renderHeader={'注册信息'}>
-            <InputItem
-              style={global.inputPadding}
-              clear={true}
-              value={this.state.username}
-              onChange={value => {
-                this.setState({
-                  username: value,
-                });
-              }}
-              labelNumber={5}
-              placeholder="输入用户名">
-              姓名:
-            </InputItem>
-            <InputItem
-              style={global.inputPadding}
-              clear
-              type="phone"
-              value={this.state.phone}
-              onChange={value => {
-                this.setState({
-                  phone: value,
-                });
-                this.checkPhone();
-              }}
-              error={this.state.phoneError}
-              labelNumber={5}
-              placeholder="输入电话号码">
-              手机号:
-            </InputItem>
-            <InputItem
-              style={global.inputPadding}
-              clear
-              type="password"
-              value={this.state.password}
-              onChange={value => {
-                this.setState({
-                  password: value,
-                });
-              }}
-              labelNumber={5}
-              placeholder="请输入密码密码">
-              密码:
-            </InputItem>
-            <InputItem
-              style={global.inputPadding}
-              clear
-              type="password"
-              value={this.state.confirmPassword}
-              onChange={value => {
-                this.setState({
-                  confirmPassword: value,
-                });
-                this.compare();
-              }}
-              error={this.state.error}
-              extra={this.state.error ? '两次密码不匹配' : ''}
-              labelNumber={5}
-              placeholder="再次确认密码">
-              输入密码:
-            </InputItem>
-          </List>
-          <View style={SignUpStyle.text}>
-            <Text>已有账号? 快去</Text>
-            <Link to={`${this.props.match.url}login`}>
-              <Text style={SignUpStyle.textColor}> 登录吧</Text>
-            </Link>
+      <Provider>
+        <View style={SignUpStyle.container}>
+          <View style={SignUpStyle.header}>
+            <Text>公交出行系统</Text>
           </View>
-          <Button
-            type={'primary'}
-            style={SignUpStyle.submit}
-            onPress={this.handlePress}>
-            提交
-          </Button>
-        </WingBlank>
-      </View>
+          <WingBlank>
+            <List renderHeader={'注册信息'}>
+              <InputItem
+                style={global.inputPadding}
+                clear={true}
+                value={this.state.username}
+                onChange={value => {
+                  this.setState({
+                    username: value,
+                  });
+                }}
+                labelNumber={5}
+                placeholder="输入用户名">
+                姓名:
+              </InputItem>
+              <InputItem
+                style={global.inputPadding}
+                clear
+                type="phone"
+                value={this.state.phone}
+                onChange={value => {
+                  this.setState({
+                    phone: value,
+                  });
+                  this.checkPhone();
+                }}
+                error={this.state.phoneError}
+                labelNumber={5}
+                placeholder="输入电话号码">
+                手机号:
+              </InputItem>
+              <InputItem
+                style={global.inputPadding}
+                clear
+                type="password"
+                value={this.state.password}
+                onChange={value => {
+                  this.setState({
+                    password: value,
+                  });
+                }}
+                labelNumber={5}
+                placeholder="请输入密码密码">
+                密码:
+              </InputItem>
+              <InputItem
+                style={global.inputPadding}
+                clear
+                type="password"
+                value={this.state.confirmPassword}
+                onChange={value => {
+                  this.setState({
+                    confirmPassword: value,
+                  });
+                  this.compare();
+                }}
+                error={this.state.error}
+                extra={this.state.error ? '两次密码不匹配' : ''}
+                labelNumber={5}
+                placeholder="再次确认密码">
+                输入密码:
+              </InputItem>
+            </List>
+            <View style={SignUpStyle.text}>
+              <Text>已有账号? 快去</Text>
+              <Link to={`${this.props.match.url}login`}>
+                <Text style={SignUpStyle.textColor}> 登录吧</Text>
+              </Link>
+            </View>
+            <Button
+              type={'primary'}
+              style={SignUpStyle.submit}
+              onPress={this.handlePress}>
+              提交
+            </Button>
+          </WingBlank>
+        </View>
+      </Provider>
     );
   }
 
@@ -154,8 +163,9 @@ export default class SignUp extends React.Component<
         .then(() => {
           console.log('注册好了');
         });
+    } else {
+      Toast.fail('请完善表单内容', 2);
     }
-
     return undefined;
   };
 }
