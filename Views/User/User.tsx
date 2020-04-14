@@ -46,7 +46,7 @@ const gridData = [
   },
 ];
 
-class User extends React.PureComponent<any, IUserInfo> {
+class User extends React.PureComponent<INavProps, IUserInfo> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -123,6 +123,7 @@ class User extends React.PureComponent<any, IUserInfo> {
           columnNum={3}
           onPress={(_el, i) => {
             console.log(_el, i);
+            this.props.history.push('/modifyProfile', {...this.state});
           }}
         />
       </>
