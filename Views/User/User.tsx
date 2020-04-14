@@ -3,21 +3,26 @@ import {StyleSheet, Text} from 'react-native';
 import {Card, Grid, Icon, WhiteSpace} from '@ant-design/react-native';
 import UserData from '../../components/UserData';
 import {serverUrl} from '../../config/constants';
-import {IUserInfo} from '../../custom';
+import {INavProps, IUserInfo} from '../../custom';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const UserStyles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: 28,
     marginTop: 15,
+  },
+  address: {
+    color: '#99A3A4',
+    fontSize: 16,
   },
   thumbStyle: {
     width: 60,
     height: 60,
     borderRadius: 50,
+    marginLeft: 10,
+    marginTop: 10,
     marginRight: 20,
-    marginTop: 20,
   },
   footer: {marginBottom: 10},
   largeText: {fontSize: 14},
@@ -33,7 +38,7 @@ const gridData = [
   },
   {
     icon: <Icon name={'edit'} size={'lg'} color={'#2E86C1'} />,
-    text: largeText('修改信息'),
+    text: largeText('修改个人信息'),
   },
   {
     icon: <Icon name={'setting'} size={'lg'} color={'#2E4053'} />,
@@ -97,9 +102,12 @@ class User extends React.PureComponent<any, IUserInfo> {
         <Card full={true}>
           <Card.Header
             title={
-              <Text style={UserStyles.title}>
-                {this.state.username} {genderIcon}
-              </Text>
+              <>
+                <Text style={UserStyles.title}>
+                  {this.state.username} {genderIcon}
+                </Text>
+                <Text style={UserStyles.address}>{this.state.address}</Text>
+              </>
             }
             thumbStyle={UserStyles.thumbStyle}
             thumb={this.state.avatar}
