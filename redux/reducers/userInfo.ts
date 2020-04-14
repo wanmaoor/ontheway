@@ -4,12 +4,12 @@ import {IUserInfo} from '../../custom';
 const defaultUser = {
   username: '拖米',
   email: 'wequart@gmail.com',
-  gender: true,
+  gender: '女',
   avatar: 'https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg',
   address: 'abc',
   birth: '1997-10-03',
-  phone: 15520810252,
-};
+  phone: '15520810252',
+} as const;
 
 export default function(state: IUserInfo = defaultUser, action: any) {
   switch (action.type) {

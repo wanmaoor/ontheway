@@ -4,7 +4,7 @@ import {Icon} from '@ant-design/react-native';
 import {RouteComponentProps} from 'react-router-native';
 interface INavHeader extends RouteComponentProps {
   title: string;
-  confirm: boolean;
+  cb?: () => void;
 }
 
 const NavHeaderStyles = StyleSheet.create({
@@ -20,7 +20,7 @@ const NavHeaderStyles = StyleSheet.create({
   },
 });
 
-const NavHeader: React.FC<INavHeader> = ({title, confirm, history}) => {
+const NavHeader: React.FC<INavHeader> = ({title, cb, history}) => {
   return (
     <View style={NavHeaderStyle.navHeight}>
       <Icon
@@ -33,8 +33,12 @@ const NavHeader: React.FC<INavHeader> = ({title, confirm, history}) => {
         }}
       />
       <Text style={NavHeaderStyles.textStyle}>{title}</Text>
-      {confirm ? (
-        <Text style={[NavHeaderStyles.textStyle, NavHeaderStyles.rightText]}>
+      {cb ? (
+        <Text
+          style={[NavHeaderStyles.textStyle, NavHeaderStyles.rightText]}
+          onPress={() => {
+            cb();
+          }}>
           确认
         </Text>
       ) : (

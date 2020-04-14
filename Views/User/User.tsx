@@ -52,12 +52,12 @@ class User extends React.PureComponent<INavProps, IUserInfo> {
     this.state = {
       username: '拖米',
       email: 'wequart@gmail.com',
-      gender: true,
+      gender: '男',
       avatar:
         'https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg',
       address: 'abc',
       birth: '1997-10-03',
-      phone: 15520810252,
+      phone: '15520810252',
     };
   }
   getId = async () => {
@@ -80,7 +80,7 @@ class User extends React.PureComponent<INavProps, IUserInfo> {
           this.setState({
             username: userInfo.user_name,
             email: userInfo.email,
-            gender: userInfo.sex === '男',
+            gender: userInfo.sex,
             avatar: userInfo.head_img,
             address: userInfo.address,
             birth: userInfo.birth,

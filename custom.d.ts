@@ -3,11 +3,11 @@ import {RouteComponentProps} from 'react-router-native';
 interface IUserInfo {
   username: string;
   email: string;
-  gender: boolean;
+  gender?: '男' | '女';
   avatar: string;
   address: string;
   birth: string;
-  phone: number;
+  phone: string;
 }
 
 interface INavProps extends RouteComponentProps {
