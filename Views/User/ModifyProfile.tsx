@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text} from 'react-native';
 import {INavProps} from '../../custom';
+import NavHeader from '../../components/NavHeader';
 
 class ModifyProfile extends React.PureComponent<INavProps> {
   componentDidMount(): void {
@@ -10,7 +10,7 @@ class ModifyProfile extends React.PureComponent<INavProps> {
   render(): React.ReactNode {
     return (
       <>
-        <Text>hello world</Text>
+        <NavHeader title={'修改个人信息'} confirm={true} {...this.props} />
       </>
     );
   }

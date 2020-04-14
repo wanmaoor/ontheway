@@ -127,7 +127,7 @@ export default class SignUp extends React.Component<
             <View style={SignUpStyle.text}>
               <Text>已有账号? 快去</Text>
               <Link to={`${this.props.match.url}login`}>
-                <Text style={SignUpStyle.textColor}> 登录吧</Text>
+                <Text style={SignUpStyle.textStyle}> 登录吧</Text>
               </Link>
             </View>
             <Button
@@ -188,7 +188,7 @@ const SignUpStyle = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
   },
-  textColor: {
+  textStyle: {
     color: '#2e93ff',
   },
 });

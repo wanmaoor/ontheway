@@ -87,7 +87,7 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
             <View style={LoginStyle.text}>
               <Text>没有账号? 快去</Text>
               <Link to={'/signup'}>
-                <Text style={LoginStyle.textColor}> 注册吧</Text>
+                <Text style={LoginStyle.textStyle}> 注册吧</Text>
               </Link>
             </View>
             <View>
@@ -123,7 +123,7 @@ const LoginStyle = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
   },
-  textColor: {
+  textStyle: {
     color: '#2e93ff',
   },
 });
