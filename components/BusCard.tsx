@@ -57,7 +57,6 @@ const BusCard: React.FC<IBusCardProps> = ({busName, payload, maxPayload}) => {
               setScale(1.01);
             }}
             onTouchEnd={() => {
-              console.log('点击了');
               setScale(1);
             }}>
             <Svg width="400" height="70" title={'拥挤程度'}>

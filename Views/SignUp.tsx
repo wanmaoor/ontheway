@@ -35,7 +35,6 @@ export default class SignUp extends React.Component<
       error: false,
       phoneError: false,
     };
-    console.log(this.props.match);
   }
 
   compare = () => {

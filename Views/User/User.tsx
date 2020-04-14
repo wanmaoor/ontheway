@@ -96,7 +96,6 @@ class User extends React.PureComponent<INavProps, IUserInfo> {
     ) : (
       <Icon name={'woman'} color={'#AF7AC5'} />
     );
-    console.log('User', this.state);
     return (
       <>
         <Card full={true}>
@@ -121,8 +120,7 @@ class User extends React.PureComponent<INavProps, IUserInfo> {
         <Grid
           data={gridData}
           columnNum={3}
-          onPress={(_el, i) => {
-            console.log(_el, i);
+          onPress={() => {
             this.props.history.push('/modifyProfile', {...this.state});
           }}
         />

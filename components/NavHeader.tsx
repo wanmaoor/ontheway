@@ -29,7 +29,6 @@ const NavHeader: React.FC<INavHeader> = ({title, confirm, history}) => {
         color={'#F7F9F9'}
         style={NavHeaderStyles.leftIcon}
         onPress={() => {
-          console.log(history);
           history.goBack();
         }}
       />
