@@ -1,4 +1,5 @@
 import {GET_USER_INFO, MODIFY_USER_INFO} from '../actionTypes';
+import {IUserInfo} from '../../custom';
 
 const defaultUser = {
   username: '拖米',

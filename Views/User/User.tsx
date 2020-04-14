@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {AsyncStorage, StyleSheet, Text} from 'react-native';
 import {Card, Grid, Icon, WhiteSpace} from '@ant-design/react-native';
 import UserData from '../../components/UserData';
-import index from '../../redux/reducers';
+import {serverUrl} from '../../config/constants';
 
 const UserStyles = StyleSheet.create({
   title: {
@@ -39,34 +39,56 @@ const gridData = [
   },
 ];
 
-const User: React.FC<any> = props => {
-  return (
-    <>
-      <Card full={true}>
-        <Card.Header
-          title={
-            <Text style={UserStyles.title}>
-              {props.userInfo.userInfo.username}
-            </Text>
-          }
-          thumbStyle={UserStyles.thumbStyle}
-          thumb={props.userInfo.userInfo.avatar}
+class User extends React.PureComponent<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      username: '--',
+      avatar:
+        'https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg',
+    };
+  }
+  getId = async () => {
+    try {
+      const id = await AsyncStorage.getItem('@user_id');
+      if (id) {
+        // value previously stored
+        return id;
+      }
+    } catch (e) {
+      // error reading value
+      console.error(e);
+    }
+  };
+  componentDidMount(): void {
+    this.getId().then(res => console.log(res));
+  }
+
+  render(): React.ReactNode {
+    return (
+      <>
+        <Card full={true}>
+          <Card.Header
+            title={<Text style={UserStyles.title}>{this.props.username}</Text>}
+            thumbStyle={UserStyles.thumbStyle}
+            thumb={this.props.avatar}
+          />
+          <Card.Footer
+            content={<UserData totalTime={33} totalMileage={456} />}
+            style={UserStyles.footer}
+          />
+        </Card>
+        <WhiteSpace size={'md'} />
+        <Grid
+          data={gridData}
+          columnNum={3}
+          onPress={(_el, i) => {
+            console.log(_el, i);
+          }}
         />
-        <Card.Footer
-          content={<UserData totalTime={33} totalMileage={456} />}
-          style={UserStyles.footer}
-        />
-      </Card>
-      <WhiteSpace size={'md'} />
-      <Grid
-        data={gridData}
-        columnNum={3}
-        onPress={(_el, i) => {
-          console.log(_el, i);
-        }}
-      />
-    </>
-  );
-};
+      </>
+    );
+  }
+}
 
 export default User;

@@ -1,3 +1,5 @@
+import {RouteComponentProps} from 'react-router-native';
+
 interface IUserInfo {
   username: string;
   email: string;
@@ -6,4 +8,10 @@ interface IUserInfo {
   address: string;
   birth: string;
   phone: number;
+}
+
+interface INavProps extends RouteComponentProps {
+  modifyInfo: any;
+  getInfo: any;
+  userInfo: IUserInfo;
 }

@@ -24,9 +24,9 @@ const App = () => {
     <Provider store={store}>
       <NativeRouter>
         <View style={[styles.container, global.global]}>
-          <Route exact path="/" component={SignUp} />
+          <Route path="/signup" component={SignUp} />
           <Route path="/login" component={Login} />
-          <Route path={'/nav'} component={Nav} />
+          <Route exact path={'/'} component={Nav} />
           <Route path={'/modifyProfile'} component={ModifyProfile} />
         </View>
       </NativeRouter>

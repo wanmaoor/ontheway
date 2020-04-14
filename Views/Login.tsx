@@ -1,5 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
   Button,
   InputItem,
@@ -37,9 +39,9 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
         .then(res => res.json(), err => console.error('序列化失败: ', err))
         .then(res => {
           console.log('登录后: ', res);
-          if (res) {
-            this.props.history.push('/nav', {userId: this.state.id});
-          }
+          AsyncStorage.setItem('@user_id', this.state.id).then(() => {
+            this.props.history.push('/');
+          });
         });
     } else {
       Toast.fail('完善登录信息', 2);
@@ -64,8 +66,8 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
                   });
                 }}
                 labelNumber={3}
-                placeholder="输入用户名">
-                姓名:
+                placeholder="输入id号">
+                id号:
               </InputItem>
               <InputItem
                 style={global.inputPadding}
@@ -84,7 +86,7 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
             </List>
             <View style={LoginStyle.text}>
               <Text>没有账号? 快去</Text>
-              <Link to={'/'}>
+              <Link to={'/signup'}>
                 <Text style={LoginStyle.textColor}> 注册吧</Text>
               </Link>
             </View>
