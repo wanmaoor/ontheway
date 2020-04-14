@@ -1,8 +1,10 @@
 import React from 'react';
-import {AsyncStorage, StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {Card, Grid, Icon, WhiteSpace} from '@ant-design/react-native';
 import UserData from '../../components/UserData';
 import {serverUrl} from '../../config/constants';
+import {IUserInfo} from '../../custom';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const UserStyles = StyleSheet.create({
   title: {
@@ -39,13 +41,18 @@ const gridData = [
   },
 ];
 
-class User extends React.PureComponent<any, any> {
+class User extends React.PureComponent<any, IUserInfo> {
   constructor(props: any) {
     super(props);
     this.state = {
-      username: '--',
+      username: '拖米',
+      email: 'wequart@gmail.com',
+      gender: true,
       avatar:
         'https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg',
+      address: 'abc',
+      birth: '1997-10-03',
+      phone: 15520810252,
     };
   }
   getId = async () => {
@@ -61,17 +68,32 @@ class User extends React.PureComponent<any, any> {
     }
   };
   componentDidMount(): void {
-    this.getId().then(res => console.log(res));
+    this.getId().then(res => {
+      fetch(`${serverUrl}/edit?user_id=${res}`, {method: 'GET'})
+        .then(data => data.json())
+        .then(userInfo => {
+          this.setState({
+            username: userInfo.user_name,
+            email: userInfo.email,
+            gender: userInfo.sex,
+            avatar: userInfo.head_img,
+            address: userInfo.address,
+            birth: userInfo.birth,
+            phone: userInfo.phone,
+          });
+        });
+    });
   }
 
   render(): React.ReactNode {
+    console.log('User', this.state);
     return (
       <>
         <Card full={true}>
           <Card.Header
-            title={<Text style={UserStyles.title}>{this.props.username}</Text>}
+            title={<Text style={UserStyles.title}>{this.state.username}</Text>}
             thumbStyle={UserStyles.thumbStyle}
-            thumb={this.props.avatar}
+            thumb={this.state.avatar}
           />
           <Card.Footer
             content={<UserData totalTime={33} totalMileage={456} />}
