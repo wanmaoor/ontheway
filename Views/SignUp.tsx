@@ -155,13 +155,13 @@ export default class SignUp extends React.Component<
         },
       )
         .then(
-          response => console.log(response),
+          response => response.json(),
           err => {
             console.error(err);
           },
         )
-        .then(() => {
-          console.log('注册好了');
+        .then(res => {
+          console.log('注册好了', res);
         });
     } else {
       Toast.fail('请完善表单内容', 2);

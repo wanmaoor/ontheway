@@ -29,14 +29,18 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
       fetch(
         `${serverUrl}/login?user_id=${this.state.id}&password=${
           this.state.password
-        }`,
+        }&timestamp=2020-04-12 21:04:58&longitude=30.753&latitude=103.95`,
         {
-          method: 'POST',
+          method: 'GET',
         },
-      ).then(res => {
-        console.log('登录: ', res);
-        this.props.history.push('/nav');
-      });
+      )
+        .then(res => res.json(), err => console.error('序列化失败: ', err))
+        .then(res => {
+          console.log('登录后: ', res);
+          if (res) {
+            this.props.history.push('/nav', {userId: this.state.id});
+          }
+        });
     } else {
       Toast.fail('完善登录信息', 2);
     }
