@@ -75,7 +75,7 @@ class User extends React.PureComponent<any, IUserInfo> {
           this.setState({
             username: userInfo.user_name,
             email: userInfo.email,
-            gender: userInfo.sex,
+            gender: userInfo.sex === '男',
             avatar: userInfo.head_img,
             address: userInfo.address,
             birth: userInfo.birth,
@@ -86,12 +86,21 @@ class User extends React.PureComponent<any, IUserInfo> {
   }
 
   render(): React.ReactNode {
+    const genderIcon = this.state.gender ? (
+      <Icon name={'man'} color={'#3498DB'} />
+    ) : (
+      <Icon name={'woman'} color={'#AF7AC5'} />
+    );
     console.log('User', this.state);
     return (
       <>
         <Card full={true}>
           <Card.Header
-            title={<Text style={UserStyles.title}>{this.state.username}</Text>}
+            title={
+              <Text style={UserStyles.title}>
+                {this.state.username} {genderIcon}
+              </Text>
+            }
             thumbStyle={UserStyles.thumbStyle}
             thumb={this.state.avatar}
           />
