@@ -1,9 +1,11 @@
 import React from 'react';
-import {INavProps, IUserInfo} from '../../custom';
+import {INavProps, INavState, IUserInfo} from '../../custom';
 import NavHeader from '../../components/NavHeader';
 import ImagePicker from 'react-native-image-picker';
 import {Icon, InputItem, WhiteSpace, WingBlank} from '@ant-design/react-native';
-import {Image, Picker, StyleSheet, View} from 'react-native';
+import {Image, Picker, Platform, StyleSheet, View} from 'react-native';
+import {serverUrl} from '../../config/constants';
+import RNFetchBlob from 'rn-fetch-blob';
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
@@ -26,14 +28,27 @@ interface IModifyProfileState extends IUserInfo {
   value?: any[];
   date?: Date;
 }
+const options = {
+  takePhotoButtonTitle: '拍照',
+  chooseFromLibraryButtonTitle: '从相册选择',
+  cancelButtonTitle: '取消',
+  title: '选择头像',
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
+
 class ModifyProfile extends React.PureComponent<
   INavProps,
   IModifyProfileState
 > {
+  private readonly id: string;
   constructor(props: INavProps) {
     super(props);
-    const {avatar, username, phone, gender, address, email, birth} = this.props
-      .history.location.state as IUserInfo;
+    const {avatar, username, phone, gender, address, email, birth, id} = this
+      .props.history.location.state as INavState;
+    this.id = id;
     this.state = {
       username,
       avatar,
@@ -52,7 +67,22 @@ class ModifyProfile extends React.PureComponent<
           title={'修改个人信息'}
           {...this.props}
           cb={() => {
-            console.log(this.state);
+            fetch(
+              `${serverUrl}/edit?user_id=${this.id}&user_name=${
+                this.state.username
+              }&phone=${this.state.phone.split(' ').join('')}&email=${
+                this.state.email
+              }&sex=${this.state.gender}&head_img=${
+                this.state.avatar
+              }&address=${this.state.address}&born_date=${this.state.birth}`,
+              {method: 'POST'},
+            )
+              .then(res => {
+                return res.json();
+              })
+              .then(data => {
+                console.log(data);
+              });
           }}
         />
         <WingBlank>
@@ -60,11 +90,54 @@ class ModifyProfile extends React.PureComponent<
             <Image
               style={styles.logo}
               source={{
-                uri:
-                  'https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg',
+                uri: this.state.avatar,
               }}
             />
             <Icon
+              onPress={() => {
+                ImagePicker.showImagePicker(options, response => {
+                  if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                  } else if (response.error) {
+                    console.log('ImagePicker Error: ', response.error);
+                  } else {
+                    const source = {uri: response.uri, data: response.data};
+                    // You can also display the image using data:
+                    // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+                    this.setState({
+                      avatar: source.uri,
+                    });
+                    // 进行文件提交
+                    const PATH =
+                      Platform.OS === 'android'
+                        ? response.uri
+                        : response.uri.replace('file:///', '');
+                    RNFetchBlob.fetch(
+                      'POST',
+                      '123.57.55.107:5000/edit',
+                      {
+                        'Content-Type': 'multipart/form-data',
+                      },
+                      [
+                        {
+                          name: '用户头像',
+                          filename: response.fileName || '未命名文件.jpg',
+                          type: response.type,
+                          data: RNFetchBlob.wrap(PATH),
+                        },
+                      ],
+                    )
+                      .then(resp => {
+                        // ...
+                        console.log(resp, 'resp');
+                      })
+                      .catch(err => {
+                        // ...
+                        console.log(err, 'err');
+                      });
+                  }
+                });
+              }}
               name={'camera'}
               size={'lg'}
               color={'#333333'}

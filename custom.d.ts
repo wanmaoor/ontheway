@@ -15,3 +15,7 @@ interface INavProps extends RouteComponentProps {
   getInfo: any;
   userInfo: IUserInfo;
 }
+
+interface INavState extends IUserInfo {
+  id: string;
+}

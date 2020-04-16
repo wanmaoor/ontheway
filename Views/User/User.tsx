@@ -3,8 +3,9 @@ import {StyleSheet, Text} from 'react-native';
 import {Card, Grid, Icon, WhiteSpace} from '@ant-design/react-native';
 import UserData from '../../components/UserData';
 import {serverUrl} from '../../config/constants';
-import {INavProps, IUserInfo} from '../../custom';
+import {INavState} from '../../custom';
 import AsyncStorage from '@react-native-community/async-storage';
+import {RouteComponentProps} from 'react-router-native';
 
 const UserStyles = StyleSheet.create({
   title: {
@@ -46,11 +47,11 @@ const gridData = [
   },
 ];
 
-class User extends React.PureComponent<INavProps, IUserInfo> {
+class User extends React.PureComponent<RouteComponentProps, INavState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      username: '拖米',
+      username: '--',
       email: 'wequart@gmail.com',
       gender: '男',
       avatar:
@@ -58,6 +59,7 @@ class User extends React.PureComponent<INavProps, IUserInfo> {
       address: 'abc',
       birth: '1997-10-03',
       phone: '15520810252',
+      id: '',
     };
   }
   getId = async () => {
@@ -65,6 +67,7 @@ class User extends React.PureComponent<INavProps, IUserInfo> {
       const id = await AsyncStorage.getItem('@user_id');
       if (id) {
         // value previously stored
+        this.setState({id});
         return id;
       }
     } catch (e) {

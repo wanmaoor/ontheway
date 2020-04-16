@@ -1,17 +1,15 @@
 import React from 'react';
 import {RouteComponentProps} from 'react-router-native';
-import {Text, View} from 'react-native';
-const Stats: React.FC<RouteComponentProps> = ({history}) => {
-  return (
-    <View style={{flex: 1, backgroundColor: 'green'}}>
-      <Text
-        onPress={() => {
-          history.push('/login');
-        }}>
-        统计
-      </Text>
-    </View>
-  );
-};
+import {WebView} from 'react-native-webview';
+
+class Stats extends React.Component<RouteComponentProps> {
+  constructor(props: RouteComponentProps) {
+    super(props);
+  }
+
+  render() {
+    return <WebView source={{uri: 'https://baidu.com'}} />;
+  }
+}
 
 export default Stats;

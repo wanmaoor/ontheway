@@ -9,13 +9,11 @@ import Stats from '../Views/Stats/Stats';
 import {IUserInfo} from '../custom';
 import AsyncStorage from '@react-native-community/async-storage';
 
-interface INavProps extends RouteComponentProps {
-  modifyInfo: any;
-  getInfo: any;
-  userInfo: IUserInfo;
-}
-class Nav extends React.PureComponent<INavProps, {selectedTab: string}> {
-  constructor(props: INavProps) {
+class Nav extends React.PureComponent<
+  RouteComponentProps,
+  {selectedTab: string}
+> {
+  constructor(props: RouteComponentProps) {
     super(props);
     this.state = {
       selectedTab: '路况',
